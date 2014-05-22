@@ -265,15 +265,15 @@
 		<value xml:lang="vi"><![CDATA[File đính kèm của bạn có thể trùng tên với File khác do người khác đã gửi lên.<br/>File Download có thể nhận được những hướng dẫn cụ thể.]]></value>
 	</item>
 	<item name="attach_screenshot">
-		<value xml:lang="ko"><![CDATA[스크린샷]]></value>
-		<value xml:lang="en"><![CDATA[Screenshot]]></value>
+		<value xml:lang="ko"><![CDATA[미리보기]]></value>
+		<value xml:lang="en"><![CDATA[Preview]]></value>
 		<value xml:lang="zh-TW"><![CDATA[螢幕截圖]]></value>
 		<value xml:lang="tr"><![CDATA[Ekran Görüntüsü]]></value>
 		<value xml:lang="vi"><![CDATA[Hình mô tả]]></value>
 	</item>
 	<item name="about_attach_screenshot">
-		<value xml:lang="ko"><![CDATA[목록등에서 보이는 스크린샷 이미지를 등록해주세요.<br/>100x100 사이즈의 이미지로 올려주시면 가장 잘 보일 수 있습니다.<br/>jpg,gif,png등의 파일로 등록을 해주세요.]]></value>
-		<value xml:lang="en"><![CDATA[Register screenshot, which will appear in the list of files. <br /> 100x100 size is recommended. <br /> Please use jpg, gif, or png.]]></value>
+		<value xml:lang="ko"><![CDATA[목록등에서 보이는 미리보기 이미지를 등록해주세요.<br/>100x100 사이즈의 이미지로 올려주시면 가장 잘 보일 수 있습니다.<br/>jpg,gif,png등의 파일로 등록을 해주세요.]]></value>
+		<value xml:lang="en"><![CDATA[Register Preview, which will appear in the list of files. <br /> 100x100 size is recommended. <br /> Please use jpg, gif, or png.]]></value>
 		<value xml:lang="zh-TW"><![CDATA[請上傳螢幕截圖。<br/> 圖片大小是 100x100 的常見大小。<br/> 請使用 jpg、gif、png 等圖片格式。]]></value>
 		<value xml:lang="tr"><![CDATA[Dosyalar listesinde görüntülenecek ekran görüntüsünü kaydedin. <br /> 100x100 boyutları tavsiye edilir. <br /> Lütfen jpg, gif veya png formatlarını kullanın.]]></value>
 		<value xml:lang="vi"><![CDATA[Xin hãy nhập hình mô tả cho dữ liệu của bạn.<br/>100x100px là định dạng chuẩn cho hình mô tả.<br/>Chỉ hỗ trợ những định dạng .jpg, .gif, .png.]]></value>
