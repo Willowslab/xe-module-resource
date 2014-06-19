@@ -11,6 +11,7 @@
         function init() 
         {
             $oDocumentModel = &getModel('document');
+            $oResourceModel = &getModel('resource');
             Context::set('categories', $oDocumentModel->getCategoryList($this->module_srl));
 
             $template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
@@ -22,6 +23,30 @@
             $this->setTemplatePath($template_path);
             $this->setTemplateFile(strtolower(str_replace('dispResource','',$this->act)));
             Context::addJsFile($this->module_path.'tpl/js/resource.js');
+            
+            /**
+			 * @author Willowseo
+			 * @brief 존나 쩌는 카테고리 에러 수정
+			 **/
+			 
+			 // 2014.06.19
+			 
+			$category = $oDocumentModel->getCategoryList($this->module_srl);
+			$packageCount = $oResourceModel->getCategoryPacakgeCount($this->module_srl);
+			$realCategoryCount = $oResourceModel->getCategoryPacakgeCount($this->module_srl);
+			
+			// 순서대로 카테고리 정렬
+			//부모 카테고리에 정확한 자식 카테고리까지 더함. 그런데 부모 카테고리는 선택이 안 되잖아?...
+			foreach($category as $key => $val)
+			{
+				if($val->childs)
+				{
+					$tmp = 0;
+					for( $i = 0 ; $i < count($val->childs) ; $i++)	$tmp += $packageCount[$val->childs[$i]]->count;
+					$realCategoryCount[$val->category_srl]->count += $tmp;
+				}
+			}
+            Context::set('package_categories',$realCategoryCount);
         }
 
         function dispResourceIndex() 
@@ -114,7 +139,7 @@
                 Context::set('page_navigation', $output->page_navigation);
             }
 
-            Context::set('package_categories', $oResourceModel->getCategoryPacakgeCount($this->module_srl));
+            /* remove Context::set('package_categories', $oResourceModel->getCategoryPacakgeCount($this->module_srl)); */
         }
 
         function dispResourceInsertPackage() 
