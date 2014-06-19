@@ -5,14 +5,17 @@
      * @brief  resource view class
      **/
 
-    class resourceView extends resource {
+    class resourceView extends resource 
+    {
 
-        function init() {
+        function init() 
+        {
             $oDocumentModel = &getModel('document');
             Context::set('categories', $oDocumentModel->getCategoryList($this->module_srl));
 
             $template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
-            if(!is_dir($template_path)||!$this->module_info->skin) {
+            if(!is_dir($template_path)||!$this->module_info->skin) 
+            {
                 $this->module_info->skin = 'xe_official';
                 $template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
             }
@@ -21,7 +24,8 @@
             Context::addJsFile($this->module_path.'tpl/js/resource.js');
         }
 
-        function dispResourceIndex() {
+        function dispResourceIndex() 
+        {
             $oResourceModel = &getModel('resource');
             $oDocumentModel = &getModel('document');
             $oFileModel = &getModel('file');
@@ -33,16 +37,19 @@
             $item_srl = Context::get('item_srl');
             $page = Context::get('page');
 
-            if($document_srl && !$package_srl) {
+            if($document_srl && !$package_srl) 
+            {
                 $args->document_srl = $document_srl;
                 $output = executeQuery('resource.getItemByDocumentSrl',$args);
-                if($output->data) {
+                if($output->data) 
+                {
                     $package_srl = $output->data->package_srl;
                     Context::set('document_srl', '', true);
                 }
             }
 
-            if($package_srl) {
+            if($package_srl) 
+            {
                 $args->module_srl = $this->module_srl;
                 $args->package_srl = $package_srl;
                 $output = executeQuery('resource.getLatestItem', $args);
@@ -50,12 +57,14 @@
                 Context::set('latest_package', $latest_package);
             }
 
-            if($latest_package) {
+            if($latest_package) 
+            {
                 $args->module_srl = $this->module_srl;
                 $args->package_srl = $package_srl;
                 $args->item_srl = $item_srl;
                 $output = executeQuery('resource.getLatestItem', $args);
-                if($output->data) {
+                if($output->data) 
+                {
                     $package = $oDocumentModel->getDocument($output->data->document_srl);
                     foreach($output->data as $key => $val) $package->add($key, $val);
                     if($package->get('package_voter')>0) $package->add('star', (int)($package->get('package_voted')/$package->get('package_voter')));
@@ -64,7 +73,8 @@
                     else $package->add('item_star',0);
                     $package->add('depencies', $oResourceModel->getDependency($this->module_srl, $package->get('item_srl')));
 
-                    if($package->get('item_file_srl')) {
+                    if($package->get('item_file_srl')) 
+                    {
                         $file = $oFileModel->getFile($package->get('item_file_srl'));
                         if($file) $package->add('download_url', getFullUrl().$file->download_url);
                     }
@@ -75,10 +85,13 @@
                     if($logged_info->member_srl) Context::set('voted', $voted = $oResourceModel->hasVoted($this->module_srl, $package->get('package_srl'), $package->get('item_srl'), $logged_info->member_srl));
                 }
 
-                if($type == 'all') {
+                if($type == 'all') 
+                {
                     Context::set('items', $oResourceModel->getItems($this->module_srl, $package_srl));
                 }
-            } else {
+            } 
+            else 
+            {
                 $order_target = Context::get('order_target');
                 if(!in_array($order_target, array('newest', 'download', 'popular'))) $order_target = 'newest';
                 Context::set('order_target', $order_target);
@@ -104,11 +117,13 @@
             Context::set('package_categories', $oResourceModel->getCategoryPacakgeCount($this->module_srl));
         }
 
-        function dispResourceInsertPackage() {
+        function dispResourceInsertPackage() 
+        {
             Context::set('licenses', $this->licenses);
 
 			$from = Context::get('from');
-			$backUrl = array(
+			$backUrl = array
+			(
 				'' => getUrl('act', '', 'from', ''),
 				'packageList' => getUrl('act', 'dispResourcePackageList', 'from', ''),
 			);
@@ -118,7 +133,8 @@
             Context::addJsFilter($this->module_path.'tpl/filter', 'insert_package.xml');
         }
 
-        function dispResourceModifyPackage() {
+        function dispResourceModifyPackage() 
+        {
             $oResourceModel = &getModel('resource');
 
             $logged_info = Context::get('logged_info');
@@ -135,7 +151,8 @@
             Context::addJsFilter($this->module_path.'tpl/filter', 'modify_package.xml');
         }
 
-        function dispResourceDeletePackage() {
+        function dispResourceDeletePackage() 
+        {
             $oResourceModel = &getModel('resource');
 
             $logged_info = Context::get('logged_info');
@@ -149,7 +166,8 @@
             Context::addJsFilter($this->module_path.'tpl/filter', 'delete_package.xml');
         }
 
-        function dispResourcePackage() {
+        function dispResourcePackage() 
+        {
             $oResourceModel = &getModel('resource');
             $logged_info = Context::get('logged_info');
             $package_srl = Context::get('package_srl');
@@ -165,7 +183,8 @@
             Context::set('attach_items', $oResourceModel->getItems($this->module_srl, $selected_package->package_srl));
         }
 
-        function dispResourcePackageList() {
+        function dispResourcePackageList() 
+        {
             $oResourceModel = &getModel('resource');
 
             $logged_info = Context::get('logged_info');
@@ -177,7 +196,8 @@
             Context::set('page_navigation', $output->page_navigation);
         }
 
-        function dispResourceAttach() {
+        function dispResourceAttach() 
+        {
             $oResourceModel = &getModel('resource');
             $oEditorModel = &getModel('editor');
 
@@ -200,7 +220,8 @@
             Context::addJsFilter($this->module_path.'tpl/filter', 'attach.xml');
         }
 
-        function dispResourceModifyAttach() {
+        function dispResourceModifyAttach() 
+        {
             $oResourceModel = &getModel('resource');
             $oFileController = &getController('file');
             $oEditorModel = &getModel('editor');
@@ -228,7 +249,8 @@
             Context::addJsFilter($this->module_path.'tpl/filter', 'modify_attach.xml');
         }
 
-        function dispResourceManage() {
+        function dispResourceManage() 
+        {
             $oResourceModel = &getModel('resource');
 
             if(!$this->grant->manager) return new Object(-1,'msg_not_permitted');
@@ -248,7 +270,8 @@
             Context::addJsFilter($this->module_path.'tpl/filter', 'change_status.xml');
         }
 
-        function dispResourceSearchDependency() {
+        function dispResourceSearchDependency() 
+        {
             $oResourceModel = &getModel('resource');
 
             $category_srl = Context::get('category_srl');
